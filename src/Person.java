@@ -11,6 +11,10 @@ public class Person
     private Person beschenktePerson = null;
     private Person beschenktVon = null;
     
+    private List<Person> ehemaligeBeschenkte = new ArrayList<>();
+    private List<Person> ehemaligeBeschenkende = new ArrayList<>();
+    private List<Person> beschenkbarePersonen = new ArrayList();
+    
     
     Person(String name)
     {
