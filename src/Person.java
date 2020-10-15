@@ -5,15 +5,17 @@ public class Person
 {
     private static List<Person> personen = new ArrayList<>(6);
     
-    int id;
+    private int id;
     private String name;
     private Person partner = null;
     private Person beschenktePerson = null;
     private Person beschenktVon = null;
+    private Person zuletztBeschenktePerson = null;
+    private Person zuletztBeschenktVon = null;
     
     private List<Person> ehemaligeBeschenkte = new ArrayList<>();
     private List<Person> ehemaligeBeschenkende = new ArrayList<>();
-    private List<Person> beschenkbarePersonen = new ArrayList();
+    private List<Person> beschenkbarePersonen = new ArrayList<>();
     
     
     Person(String name)
@@ -27,38 +29,53 @@ public class Person
     
     
     
-    public Person getBeschenktePerson()
+    private Person getBeschenktePerson()
     {
         return beschenktePerson;
     }
     
-    public void setBeschenktePerson(Person beschenktePerson)
+    void setBeschenktePerson(Person beschenktePerson)
     {
         this.beschenktePerson = beschenktePerson;
     }
     
-    public Person getBeschenktVon()
+    private Person getBeschenktVon()
     {
         return beschenktVon;
     }
     
-    public void setBeschenktVon(Person beschenktVon)
+    void setBeschenktVon(Person beschenktVon)
     {
         this.beschenktVon = beschenktVon;
     }
     
+    public Person getZuletztBeschenktePerson()
+    {
+        return zuletztBeschenktePerson;
+    }
     
-    public long getId()
+    private Person getZuletztBeschenktVon()
+    {
+        return zuletztBeschenktVon;
+    }
+    
+    void setZuletztBeschenktVon(Person zuletztBeschenktVon)
+    {
+        this.zuletztBeschenktVon = zuletztBeschenktVon;
+        zuletztBeschenktVon.zuletztBeschenktePerson = this;
+    }
+    
+    long getId()
     {
         return id;
     }
     
-    public String getName()
+    String getName()
     {
         return name;
     }
     
-    public Person getPartner()
+    private Person getPartner()
     {
         return partner;
     }
@@ -73,7 +90,7 @@ public class Person
         partner.partner = this;
     }
     
-    public static List<Person> getPersonen()
+    static List<Person> getPersonen()
     {
         shuffleArray(personen);
         return personen;
@@ -103,12 +120,13 @@ public class Person
             this.beschenktePerson != null ? this.beschenktePerson.id : "niemanden");
     }
     
-    public boolean darfBeschenken(Person beschenkt)
+    boolean darfBeschenken(Person beschenktePerson)
     {
-        return this != beschenkt
+        return this != beschenktePerson
             && this.getBeschenktePerson() == null
-            && this.getPartner() != beschenkt
-            && beschenkt.getBeschenktVon() == null
-            && this != beschenkt.getBeschenktePerson();
+            && this.getPartner() != beschenktePerson
+            && beschenktePerson.getBeschenktVon() == null
+            && this != beschenktePerson.getBeschenktePerson()
+            && beschenktePerson.getZuletztBeschenktVon() != this;
     }
 }

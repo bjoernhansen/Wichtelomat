@@ -17,6 +17,13 @@ public class Main
         fynn.setPartner(annalice);
         gunnar.setPartner(carmen);
         
+        bjoern.setZuletztBeschenktVon(fynn);
+        fynn.setZuletztBeschenktVon(carmen);
+        carmen.setZuletztBeschenktVon(bjoern);
+        gunnar.setZuletztBeschenktVon(annalice);
+        annalice.setZuletztBeschenktVon(tina);
+        tina.setZuletztBeschenktVon(gunnar);
+        
         List<Person> personen = Person.getPersonen();
         
         for(Person schenkender : personen)
@@ -34,12 +41,11 @@ public class Main
         }
         personen.forEach(System.out::println);
     
-        System.out.println("");
+        System.out.println();
         
         for(Person p : personen)
         {
             System.out.println(String.format("%s ( %d )", p.getName(), p.getId()));
         }
-        
     }
 }
