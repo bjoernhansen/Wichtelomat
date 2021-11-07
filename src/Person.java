@@ -10,12 +10,7 @@ public class Person
     private Person partner = null;
     private Person beschenktePerson = null;
     private Person beschenktVon = null;
-    private Person zuletztBeschenktePerson = null;
-    private Person zuletztBeschenktVon = null;
-    
-    private List<Person> ehemaligeBeschenkte = new ArrayList<>();
-    private List<Person> ehemaligeBeschenkende = new ArrayList<>();
-    private List<Person> beschenkbarePersonen = new ArrayList<>();
+    private List<Person> zuletztBeschenktVon = new ArrayList<>();
     
     
     Person(String name)
@@ -24,9 +19,6 @@ public class Person
         personen.add(this);
         this.id = (int)(Math.random()*Integer.MAX_VALUE);
     }
-    
-    
-    
     
     
     private Person getBeschenktePerson()
@@ -49,20 +41,15 @@ public class Person
         this.beschenktVon = beschenktVon;
     }
     
-    public Person getZuletztBeschenktePerson()
-    {
-        return zuletztBeschenktePerson;
-    }
     
-    private Person getZuletztBeschenktVon()
+    private List<Person> getZuletztBeschenktVon()
     {
         return zuletztBeschenktVon;
     }
     
-    void setZuletztBeschenktVon(Person zuletztBeschenktVon)
+    void setZuletztBeschenktVon(Person... zuletztBeschenktVon)
     {
-        this.zuletztBeschenktVon = zuletztBeschenktVon;
-        zuletztBeschenktVon.zuletztBeschenktePerson = this;
+        Collections.addAll(this.zuletztBeschenktVon, zuletztBeschenktVon);
     }
     
     long getId()
@@ -79,11 +66,7 @@ public class Person
     {
         return partner;
     }
-    
- 
-    
-    
-    
+
     void setPartner(Person partner)
     {
         this.partner = partner;
@@ -95,10 +78,6 @@ public class Person
         shuffleArray(personen);
         return personen;
     }
-    
-    
-    
-    
     
     private static void shuffleArray(List<Person> ar)
     {
@@ -127,6 +106,6 @@ public class Person
             && this.getPartner() != beschenktePerson
             && beschenktePerson.getBeschenktVon() == null
             && this != beschenktePerson.getBeschenktePerson()
-            && beschenktePerson.getZuletztBeschenktVon() != this;
+            && !beschenktePerson.getZuletztBeschenktVon().contains(this);
     }
 }
