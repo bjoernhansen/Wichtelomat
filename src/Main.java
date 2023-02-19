@@ -17,12 +17,12 @@ public class Main
         fynn.setPartner(annalice);
         gunnar.setPartner(carmen);
         
-        bjoern.setZuletztBeschenktVon(fynn, carmen);
-        fynn.setZuletztBeschenktVon(carmen, bjoern);
-        carmen.setZuletztBeschenktVon(bjoern, fynn);
-        gunnar.setZuletztBeschenktVon(annalice, tina);
-        annalice.setZuletztBeschenktVon(tina, gunnar);
-        tina.setZuletztBeschenktVon(gunnar, annalice);
+        bjoern.setZuletztBeschenktVon(fynn, carmen, gunnar);
+        fynn.setZuletztBeschenktVon(carmen, bjoern, tina);
+        carmen.setZuletztBeschenktVon(bjoern, fynn, annalice);
+        gunnar.setZuletztBeschenktVon(annalice, tina, fynn);
+        annalice.setZuletztBeschenktVon(tina, gunnar, bjoern);
+        tina.setZuletztBeschenktVon(gunnar, annalice, carmen);
         
         List<Person> personen = Person.getPersonen();
         
